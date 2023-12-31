@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Smoke_Suite_Chrome]">
+    <listeners>
+        <listener class-name="ru.fl.retry.Listener"/>
+        <listener class-name="ru.fl.retry.AnnotationTransformer"/>
+        <listener class-name="ru.fl.retry.FixRetryListener"/>
+    </listeners>
+    <test thread-count="5" verbose="0" name="FLru_tests_chrome(failed)">
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.FinanceTest">
+                <methods>
+                    <include name="testNewFinanceSaveCustomerEntityINN"/>
+                    <include name="testNewFinanceSaveCustomerEntity"/>
+                    <include name="tearDown"/>
+                    <include name="testNewFinanceSaveCustomerEntityNotResident"/>
+                    <include name="beforeSuite"/>
+                    ...
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

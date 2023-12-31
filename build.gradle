@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id 'io.qameta.allure' version '2.9.6'
+}
+
+group 'ru.fl'
+version '1.0-SNAPSHOT'
+
+ext {
+    allureVersion = '2.16.0'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        url artifactory_url
+        credentials {
+            username artifactory_user
+            password artifactory_password
+        }
+        allowInsecureProtocol = true
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+    implementation group: 'org.testng', name: 'testng', version: '6.9.10'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.0.3'
+    implementation 'com.codeborne:selenide:5.24.0'
+    implementation 'io.github.serpro69:kotlin-faker:1.8.0'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-client', version: '7.15.1'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.0'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
+    implementation 'io.qameta.allure:allure-testng:2.16.0'
+    implementation "ru.talenttech.xqa:okfront:0.8.2"
+    implementation "ru.talenttech.xqa:uikit:0.1.0"
+    implementation "ru.talenttech.xqa:testrail:1.0.0"
+    implementation "org.redundent:kotlin-xml-builder:1.7.4"
+}
+
+//task testRailPublish(type: JavaExec, group: "publishing") {
+//    classpath sourceSets.main.runtimeClasspath
+//    main = "ru.talenttech.xqa.testrail.ResultManagerKt"
+//}
+
+def stage = project.hasProperty("stage")
+def stageTest = project.hasProperty("stageTest")
+def failed = project.hasProperty("failed")
+def stageThreads = project.hasProperty("stageThreads")
+
+tasks.withType(Test) {
+    systemProperty 'STAGE_URL', System.getProperty('STAGE_URL')
+    useTestNG(){
+        if(stage) {
+            suites "src/test/resources/stage.xml"
+        }
+        if(failed) {
+            suites "dump/testng-failed.xml"
+        }
+        if(stageTest) {
+            suites "src/test/resources/stage_testRun.xml"
+        }
+        if(stageThreads) {
+            suites "src/test/resources/stageThreads.xml"
+        }
+        useDefaultListeners = true
+        outputDirectory = file("./build/AutomationReport")
+    }
+}
+

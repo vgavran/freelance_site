@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Gradle suite]" verbose="0">
+	<test thread-count="5" name="Gradle test(failed)" verbose="0">
+		<classes>
+			<class name="ru.fl.test.FinanceTest">
+				<methods>
+					<include name="before"/>
+					<include name="testNewFinanceSaveCustomerEntity"/>
+					<include name="tearDown"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

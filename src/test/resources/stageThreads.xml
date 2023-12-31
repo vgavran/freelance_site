@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke_Suite_Chrome" verbose="1" thread-count="5" parallel="tests">
+    <listeners>
+        <listener class-name="ru.fl.retry.Listener"/>
+        <listener class-name="ru.fl.retry.AnnotationTransformer"/>
+        <listener class-name="ru.fl.retry.FixRetryListener"/>
+    </listeners>
+    <test name="Thread_1" >
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.RegistrationTest"/>
+            <class name="ru.fl.test.AuthTest"/>
+            <class name="ru.fl.test.ProProfiTest"/>
+            <class name="ru.fl.test.ProfileTest"/>
+            <class name="ru.fl.test.SearchTest"/>
+            <class name="ru.fl.test.NewCatalogFormTest"/>
+            <class name="ru.fl.test.FreelCatalogTest"/>
+            <class name="ru.fl.test.ProjectTest"/>
+        </classes>
+    </test>
+    <test name="Thread_2" >
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.FreelCatalogNewTest"/>
+            <class name="ru.fl.test.BS_ComissionTest"/>
+            <class name="ru.fl.test.SelectExecutorTest"/>
+        </classes>
+    </test>
+    <test name="Thread_3" >
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.PersonalAccountTest"/>
+            <class name="ru.fl.test.DirectDealTest"/>
+            <class name="ru.fl.test.BS_ReservationLegalEntityTest"/>
+        </classes>
+    </test>
+    <test name="Thread_4" >
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.FinanceTest"/>
+            <class name="ru.fl.test.BS_ReservationIndividualTest"/>
+            <class name="ru.fl.test.MessagesTest"/>
+        </classes>
+    </test>
+    <!--    12.5  -->
+    <test name="Thread_5" >
+        <parameter name="driver-name" value="chrome"/>
+        <classes>
+            <class name="ru.fl.test.VacancyTest"/>
+            <class name="ru.fl.test.FreelancerPayoutTest"/>
+        </classes>
+    </test>
+</suite>
